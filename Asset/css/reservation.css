@@ -124,7 +124,7 @@
     background-color: var(--Principal);
 }
 .Btn {
-    width: 130px;
+    width: 230px;
     height: 40px; 
     display: flex;
     align-items: center;
@@ -137,7 +137,7 @@
     position: relative;
     overflow: hidden;
     transition-duration: 0.3s;
-    border-radius: 50px;
+    border-radius: 5px;
   }
 .Btn span {
     color: black;
@@ -155,7 +155,7 @@
   }
   
   .Btn::before {
-    width: 132px;
+    width: 233px;
     height: 130px;
     position: absolute;
     content: "";
@@ -168,8 +168,8 @@
   
   .Btn:hover::before {
     transition-duration: 0.3s;
-    transform: translate(99%, -51%);
-    border-radius: 50px;
+    transform: translate(99%, -50%);
+    border-radius: 5px;
   }
   
   .Btn:active {

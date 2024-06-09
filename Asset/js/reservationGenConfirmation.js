@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const leftSeatsContainer = document.getElementById('left-seats-container');
     const bottomSeatsContainer = document.getElementById('bottom-seats-container');
     const payButton = document.getElementById('pay-button');
-
-
-
     const createSeats = (container, seatsLayout, seatClass) => {
         seatsLayout.forEach(seat => {
             const seatElement = document.createElement('div');
@@ -14,16 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
             seatElement.style.gridColumn = seat.column;
             seatElement.style.gridRow = seat.row;
             seatElement.dataset.seatNumber = seat.id;
-            seatElement.addEventListener('click', () => {
-                seatElement.classList.toggle('selected');
-                console.log(seat.id);
-            });
+            
             container.appendChild(seatElement);
         });
     };
-
-
-
 
     // Définir la disposition des sièges du haut (4 colonnes avec 2 rangées chacune)
     const topSeatsLayout = [
@@ -47,9 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         {id: '1.2-A21', column: 10, row: 3}, {id: '2.2-A21', column: 11, row: 3},
         {id: '1.1-A21', column: 10, row: 4}, {id: '2.1-A21', column: 11, row: 4},
     ];
-
-
-    
     
     // Définir la disposition des sièges de gauche (exemple avec 6 colonnes et 5 rangées)
     const leftSeatsLayout = [
@@ -329,32 +317,32 @@ document.addEventListener('DOMContentLoaded', () => {
     createSeats(topSeatsContainer, topSeatsLayout, 'top-seat');
     createSeats(leftSeatsContainer, leftSeatsLayout, 'left-seat');
     createSeats(bottomSeatsContainer, bottomSeatsLayout, 'bottom-seat');
+    
+    // payButton.addEventListener('click', () => {
+    //     const selectedSeats = document.querySelectorAll('.seat.selected, .top-seat.selected, .left-seat.selected, .bottom-seat.selected');
+    //     const seatNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber);
+    //     alert(`Seats selected: ${seatNumbers.join(', ')}`);
 
-    payButton.addEventListener('click', () => {
-        const selectedSeats = document.querySelectorAll('.seat.selected, .top-seat.selected, .left-seat.selected, .bottom-seat.selected');
-        const seatNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber);
-        // alert(`Seats selected: ${seatNumbers.join(', ')}`);
+    //     // Build the query string
+    //     // const queryString = `?seats=${seatNumbers.join(',')}`;
+    //     // window.location.href = `../../reservation/reservation.html${queryString}`;
 
-        // Build the query string
-        // const queryString = `?seats=${seatNumbers.join(',')}`;
-        // window.location.href = `../../reservation/reservation.html${queryString}`;
+    //     // Create a form dynamically
+    //     const form = document.createElement('form');
+    //     form.method = 'POST';
+    //     form.action = 'reservation/reservation.php';
 
-        // Create a form dynamically
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'reservation/reservation.php';
+    //     // Create a hidden input to hold the seat numbers
+    //     const input = document.createElement('input');
+    //     input.type = 'hidden';
+    //     input.name = 'seats';
+    //     input.value = seatNumbers.join(',');
 
-        // Create a hidden input to hold the seat numbers
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'seats';
-        input.value = seatNumbers.join(',');
+    //     // Append the input to the form
+    //     form.appendChild(input);
 
-        // Append the input to the form
-        form.appendChild(input);
-
-        // Append the form to the body and submit the form
-        document.body.appendChild(form);
-        form.submit();
-    });
+    //     // Append the form to the body and submit the form
+    //     document.body.appendChild(form);
+    //     form.submit();
+    // });
 });
