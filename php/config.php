@@ -1,9 +1,12 @@
 <?php
-// Connexion à la base de données
-$mysqli = new mysqli("localhost", "root", "", "e-arch"); //mdp green
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "adm";
 
-// Vérification de la connexion
-if ($mysqli->connect_error) {
-    die("Erreur de connexion à la base de données : " . $mysqli->connect_error);
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

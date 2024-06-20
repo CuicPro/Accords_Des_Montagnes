@@ -51,6 +51,7 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
+            flex-direction: column;
         }
         .room {
             width: 12vw;
@@ -58,19 +59,35 @@
         .top-seat, .left-seat, .bottom-seat {
             cursor: not-allowed;
         }
-        input {
+        input, table {
             width: calc(100% - var(--padding) - 20px);
-            height: calc(30px - var(--padding));
             padding: var(--padding);
             outline: var(--outline);
             border: none;
             border-radius: var(--borderR);
+            margin-bottom: var(--padding);
+        }
+        .table-container {
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid var(--GrisClaire);
+            padding: var(--padding);
+            text-align: left;
+        }
+        .delete-icon {
+            cursor: pointer;
+            color: red;
         }
     </style>
 </head>
 <body>
 
-    <form method="POST" action="reservation.php">
+    <form method="POST" action="../php/form/resa__logic_form.php">
         <label for="nom">Nom:</label>
         <input type="text" id="nom" name="nom" required><br>
         <label for="prenom">Prénom:</label>
@@ -79,8 +96,37 @@
         <input type="email" id="email" name="email"><br>
         <label for="telephone">Téléphone:</label>
         <input type="tel" id="telephone" name="telephone"><br>
-        <label for="places_reservees">Places réservées:</label>
-        <input type="text" id="places_reservees" name="places_reservees" required value="<?php echo $seats ; ?>"><br>
+        
+        <label for="reservation-date">Date de réservation:</label>
+        <input type="date" id="reservation-date" name="reservation_date" required><br>
+
+        <div class="table-container">
+            <table id="seats-table">
+                <thead>
+                    <tr>
+                        <th>Siège</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (!empty($seats) && $seats !== "Aucun siège sélectionné.") {
+                        $seatsArray = explode(',', $seats);
+                        foreach ($seatsArray as $seat) {
+                            echo "<tr data-seat='{$seat}'>
+                                    <td>{$seat}</td>
+                                    <td><span class='delete-icon'>&#128465;</span></td>
+                                  </tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='2'>Aucun siège sélectionné.</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <input type="hidden" id="seats" name="seats" value="<?php echo $seats; ?>">
 
         <button id="pay-button" class="Btn" type="submit">
             <span>Payer</span>
@@ -91,20 +137,30 @@
             </svg>
         </button>
     </form>
-    
+
     <div class="room">
-            <div id="seats-container">
-                <div id="top-seats-container"></div>
-                <div id="left-seats-container"></div>
-                <div id="bottom-seats-container"></div>
-                <div id="scene"><h1>Scene</h1></div>
-            </div>
-            
+        <div id="seats-container">
+            <div id="top-seats-container"></div>
+            <div id="left-seats-container"></div>
+            <div id="bottom-seats-container"></div>
+            <div id="scene"><h1>Scene</h1></div>
         </div>
+    </div>
 
     <script src="../Asset/js/reservationGenConfirmation.js"></script>
 
     <script>
+        function removeSeat(seatId) {
+            const row = document.querySelector(`tr[data-seat="${seatId}"]`);
+            if (row) {
+                row.remove();
+                // Optionnel: Mettre à jour l'input de places réservées
+                const seatsInput = document.getElementById('seats');
+                const seatsArray = seatsInput.value.split(',').map(s => s.trim()).filter(s => s !== seatId);
+                seatsInput.value = seatsArray.join(', ');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Marquer les sièges sélectionnés
             const reservedSeats = '<?php echo $seats; ?>'.split(',').map(seat => seat.trim());
@@ -112,6 +168,19 @@
                 const seatElement = document.querySelector(`[data-seat-number="${seatId}"]`);
                 if (seatElement) {
                     seatElement.classList.add('selected');
+                }
+            });
+
+            // Gestion de la suppression des sièges
+            const table = document.getElementById('seats-table');
+            table.addEventListener('click', function(e) {
+                if (e.target && e.target.matches('span.delete-icon')) {
+                    const row = e.target.closest('tr');
+                    const seat = row.getAttribute('data-seat');
+                    row.remove();
+                    const seatsInput = document.getElementById('seats');
+                    const seatsArray = seatsInput.value.split(',').map(s => s.trim()).filter(s => s !== seat);
+                    seatsInput.value = seatsArray.join(', ');
                 }
             });
         });
