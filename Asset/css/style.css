@@ -41,6 +41,36 @@
     background-color: var(--Principal) !important;
     cursor: not-allowed;
 }
+/* TOAST */
+.notification {
+    z-index: 10000;
+    width: 85vw;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 10px;
+    bottom: 20px;
+
+    background-color: white;
+    color: var(--black-white);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: var(--border);
+    animation: toast_slide_off 2.5s forwards;
+}
+
+@keyframes toast_slide_off {
+    90% {transform: translateX(0px); opacity: 100%;}
+    100% {transform: translateX(300px); opacity: 0%;}
+}
+
+
+
+
+
+
 
 
 

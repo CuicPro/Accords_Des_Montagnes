@@ -1,9 +1,12 @@
 <?php
+session_start();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['seats'])) {
             $seats = htmlspecialchars($_POST['seats']);
         } else {
-            $seats = "Aucun siège sélectionné.";
+            $_SESSION['resa_log'] = "Vous devez sélectionner au minimum 1 siège.";
+            header('Location: ../index.php');
+            exit();
         }
     } else {
         header('Location: ../errors/404.html');

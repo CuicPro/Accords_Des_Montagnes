@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = htmlspecialchars($_POST['nom']);

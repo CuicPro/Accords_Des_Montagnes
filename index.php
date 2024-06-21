@@ -1,5 +1,14 @@
 <?php
 require('php/config.php');
+session_start();
+if (isset($_SESSION['resa_log'])) {
+    $resa_log = htmlspecialchars($_SESSION['resa_log'], ENT_QUOTES, 'UTF-8');
+
+    // Supprimer la resa_log de la variable de session pour éviter de l'afficher à nouveau après un rafraîchissement de la page
+    unset($_SESSION['resa_log']);
+}
+
+
 
 // Récupérer les places réservées depuis la base de données
 $sql = "SELECT places_reservees FROM reservations";
@@ -18,7 +27,9 @@ $conn->close();
 
 $reserved_seats_json = json_encode($reserved_seats);
 ?>
-
+<?php if(isset($resa_log)): ?>
+    <div class="notification"><?php echo $resa_log; ?></div>
+<?php endif; ?>
 
 
 <!DOCTYPE html>
@@ -570,8 +581,6 @@ $reserved_seats_json = json_encode($reserved_seats);
                 </button>
         </div>
         <script src="Asset/js/reservationGen.js"></script>
-
-
         <script>
             $(document).ready(function() {
                 var reservedSeats = <?php echo $reserved_seats_json; ?>;
@@ -582,37 +591,23 @@ $reserved_seats_json = json_encode($reserved_seats);
                     $('[data-seat-number="' + seatNumber + '"]').addClass('reserved');
                 });
 
-                // Afficher les sièges réservés dans la console pour le débogage
-                console.log("Sièges réservés:", reservedSeats);
             });
         </script>
 
-        <?php var_dump($reserved_seats_json); 
+        <?php 
+            // var_dump($reserved_seats_json); 
             // $jsonString = '["1.4-A18"]';
-            $jsonString = $reserved_seats_json;
-            $array = json_decode($jsonString); // Convertit la chaîne JSON en tableau PHP
+            // $jsonString = $reserved_seats_json;
+            // $array = json_decode($jsonString); // Convertit la chaîne JSON en tableau PHP
             
-            // Accès à l'élément du tableau
-            if (!empty($array)) {
-                $firstElement = $array[0];
-                echo "Premier élément du tableau : $firstElement";
-            } else {
-                echo "Le tableau est vide ou non valide.";
-            }
-        
-        
+            // // Accès à l'élément du tableau
+            // if (!empty($array)) {
+            //     $firstElement = $array[0];
+            //     echo "Premier élément du tableau : $firstElement";
+            // } else {
+            //     echo "Le tableau est vide ou non valide.";
+            // }
         ?>
-        <script>
-            $(document).ready(function() {
-                var reservedSeats = <?php echo $reserved_seats_json; ?>;
-                
-                // Pour chaque siège réservé
-                $.each(reservedSeats, function(index, seatNumber) {
-                    // Sélectionner l'élément avec le data-seat-number correspondant et ajouter la classe 'reserved'
-                    $('[data-seat-number="' + seatNumber + '"]').addClass('reserved');
-                });
-            });
-        </script>
     </section>
     <section id="Commentaire">  
         <form id="commentForm" action="php/form/comm_logic_form.php" method="get">
