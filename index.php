@@ -587,20 +587,19 @@ $reserved_seats_json = json_encode($reserved_seats);
             });
         </script>
 
-        <?php var_dump($reserved_seats_json); 
-            // $jsonString = '["1.4-A18"]';
-            $jsonString = $reserved_seats_json;
-            $array = json_decode($jsonString); // Convertit la chaîne JSON en tableau PHP
+        <?php 
+            // var_dump($reserved_seats_json); 
+            // // $jsonString = '["1.4-A18"]';
+            // $jsonString = $reserved_seats_json;
+            // $array = json_decode($jsonString); // Convertit la chaîne JSON en tableau PHP
             
-            // Accès à l'élément du tableau
-            if (!empty($array)) {
-                $firstElement = $array[0];
-                echo "Premier élément du tableau : $firstElement";
-            } else {
-                echo "Le tableau est vide ou non valide.";
-            }
-        
-        
+            // // Accès à l'élément du tableau
+            // if (!empty($array)) {
+            //     $firstElement = $array[0];
+            //     echo "Premier élément du tableau : $firstElement";
+            // } else {
+            //     echo "Le tableau est vide ou non valide.";
+            // }
         ?>
         <script>
             $(document).ready(function() {
