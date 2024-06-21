@@ -35,6 +35,15 @@
     --box-border: #fff;
 }
 
+
+
+.reserved {
+    background-color: var(--Principal) !important;
+    cursor: not-allowed;
+}
+
+
+
 body{
     display: flex;
     flex-direction: column;

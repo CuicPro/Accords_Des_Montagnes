@@ -6,6 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // const createSeats = (container, seatsLayout, seatClass) => {
+    //     seatsLayout.forEach(seat => {
+    //         const seatElement = document.createElement('div');
+    //         seatElement.classList.add(seatClass);
+    //         seatElement.classList.add('seat');
+    //         seatElement.style.gridColumn = seat.column;
+    //         seatElement.style.gridRow = seat.row;
+    //         seatElement.dataset.seatNumber = seat.id;
+    //         seatElement.addEventListener('click', () => {
+    //             seatElement.classList.toggle('selected');
+    //             console.log(seat.id);
+    //         });
+    //         container.appendChild(seatElement);
+    //     });
+    // };
     const createSeats = (container, seatsLayout, seatClass) => {
         seatsLayout.forEach(seat => {
             const seatElement = document.createElement('div');
@@ -14,14 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
             seatElement.style.gridColumn = seat.column;
             seatElement.style.gridRow = seat.row;
             seatElement.dataset.seatNumber = seat.id;
+    
             seatElement.addEventListener('click', () => {
-                seatElement.classList.toggle('selected');
+                // Si le siège est réservé, ne rien faire
+                if (seatElement.classList.contains('reserved')) {
+                    return;
+                }
+    
+                // Si le siège est déjà sélectionné, le désélectionner
+                if (seatElement.classList.contains('selected')) {
+                    seatElement.classList.remove('selected');
+                } else {
+                    // Sinon, le sélectionner
+                    seatElement.classList.add('selected');
+                }
                 console.log(seat.id);
             });
+    
             container.appendChild(seatElement);
         });
     };
-
 
 
 
