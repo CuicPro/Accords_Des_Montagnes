@@ -3,24 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const leftSeatsContainer = document.getElementById('left-seats-container');
     const bottomSeatsContainer = document.getElementById('bottom-seats-container');
     const payButton = document.getElementById('pay-button');
-
-
-
-    // const createSeats = (container, seatsLayout, seatClass) => {
-    //     seatsLayout.forEach(seat => {
-    //         const seatElement = document.createElement('div');
-    //         seatElement.classList.add(seatClass);
-    //         seatElement.classList.add('seat');
-    //         seatElement.style.gridColumn = seat.column;
-    //         seatElement.style.gridRow = seat.row;
-    //         seatElement.dataset.seatNumber = seat.id;
-    //         seatElement.addEventListener('click', () => {
-    //             seatElement.classList.toggle('selected');
-    //             console.log(seat.id);
-    //         });
-    //         container.appendChild(seatElement);
-    //     });
-    // };
+    
     const createSeats = (container, seatsLayout, seatClass) => {
         seatsLayout.forEach(seat => {
             const seatElement = document.createElement('div');
@@ -30,21 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
             seatElement.style.gridRow = seat.row;
             seatElement.dataset.seatNumber = seat.id;
     
-            seatElement.addEventListener('click', () => {
-                // Si le siège est réservé, ne rien faire
-                if (seatElement.classList.contains('reserved')) {
-                    return;
-                }
+            // seatElement.addEventListener('click', () => {
+            //     // Si le siège est réservé, ne rien faire
+            //     if (seatElement.classList.contains('reserved')) {
+            //         return;
+            //     }
     
-                // Si le siège est déjà sélectionné, le désélectionner
-                if (seatElement.classList.contains('selected')) {
-                    seatElement.classList.remove('selected');
-                } else {
-                    // Sinon, le sélectionner
-                    seatElement.classList.add('selected');
-                }
-                console.log(seat.id);
-            });
+            //     // Si le siège est déjà sélectionné, le désélectionner
+            //     if (seatElement.classList.contains('selected')) {
+            //         seatElement.classList.remove('selected');
+            //     } else {
+            //         // Sinon, le sélectionner
+            //         seatElement.classList.add('selected');
+            //     }
+            //     console.log(seat.id);
+            // });
     
             container.appendChild(seatElement);
         });
@@ -361,10 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedSeats = document.querySelectorAll('.seat.selected, .top-seat.selected, .left-seat.selected, .bottom-seat.selected');
         const seatNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber);
         // alert(`Seats selected: ${seatNumbers.join(', ')}`);
-
-        // Build the query string
-        // const queryString = `?seats=${seatNumbers.join(',')}`;
-        // window.location.href = `../../reservation/reservation.html${queryString}`;
 
         // Create a form dynamically
         const form = document.createElement('form');

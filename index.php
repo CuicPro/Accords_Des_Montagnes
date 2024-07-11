@@ -5,29 +5,26 @@ require('php/config.php');
 $sql = "SELECT places_reservees FROM reservations";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
-$stmt->bind_result($places_reservees);
-
 $reserved_seats = [];
 
-while ($stmt->fetch()) {
-    $reserved_seats = array_merge($reserved_seats, explode(',', $places_reservees));
+// Parcourir les résultats et construire le tableau des places réservées
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $reserved_seats = array_merge($reserved_seats, explode(',', $row['places_reservees']));
 }
-
-$stmt->close();
-$conn->close();
 
 $reserved_seats_json = json_encode($reserved_seats);
 ?>
 
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accords Des Montagnes</title>
     <link rel="stylesheet" href="Asset/css/style.css">
-    <!-- <link rel="stylesheet" href="Asset/css/reservation.css"> -->
+    <link rel="stylesheet" href="Asset/css/reservation.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -142,7 +139,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (0).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (0).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Orchestre Frédéric BUCH</div>
                                         <div class="style">Musette</div>
@@ -157,7 +154,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (1).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (1).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Frédéric BUCH</div>
                                         <div class="style">Musette</div>
@@ -172,7 +169,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (2).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (2).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Myriam THIEBAULT</div>
                                         <div class="style">Musette</div>
@@ -187,7 +184,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (3).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (3).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Nadège PALVINA</div>
                                         <div class="style"></div>
@@ -202,7 +199,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (4).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (4).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Benoit NORTIER</div>
                                         <div class="style"></div>
@@ -217,7 +214,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (5).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (5).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Hèlène TERY</div>
                                         <div class="style"></div>
@@ -232,7 +229,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (6).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (6).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Emmanuel ROLAND</div>
                                         <div class="style"></div>
@@ -247,7 +244,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (7).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (7).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">inconnu au battaillon</div>
                                         <div class="style"></div>
@@ -262,7 +259,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (8).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (8).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Jean-Michel REY</div>
                                         <div class="style"></div>
@@ -277,7 +274,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (9).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (9).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Jerome BAUDUOI</div>
                                         <div class="style"></div>
@@ -292,7 +289,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (10).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (10).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Maxime D'ERRICO</div>
                                         <div class="style"></div>
@@ -307,7 +304,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (11).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (11).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Image 4395</div>
                                         <div class="style"></div>
@@ -322,7 +319,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (12).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (12).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">ERIKA</div>
                                         <div class="style"></div>
@@ -337,7 +334,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (13).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (13).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Le Duo BALANDIER</div>
                                         <div class="style"></div>
@@ -352,7 +349,7 @@ $reserved_seats_json = json_encode($reserved_seats);
                         <div class="carousel__slider__item">
                             <div class="item__3d-frame">
                                 <div class="item__3d-frame__box item__3d-frame__box--front">
-                                    <img src="Asset/Membres/Membre (14).jpg" alt="Membre">
+                                    <img src="Asset/Membres/Membre (14).svg" alt="Membre">
                                     <div class="info">
                                         <div class="name">Stéphane ESCOME</div>
                                         <div class="style"></div>
@@ -551,6 +548,22 @@ $reserved_seats_json = json_encode($reserved_seats);
 
     
     <section id="Reservation">
+        <header>
+            <div>
+                <div class="box" style="background:#242424;"></div>
+                <i>Disponible</i>
+            </div>
+            |
+            <div>
+                <div class="box" style="background:#BF423A;"></div>
+                <i>Réserver</i>
+            </div>
+            |
+            <div>
+                <div class="box" style="background:#84cc16;"></div>
+                <i>Séléctionner</i>
+            </div>
+        </header>
         <div class="room">
             <div id="seats-container">
                 <div id="top-seats-container"></div>
@@ -583,32 +596,6 @@ $reserved_seats_json = json_encode($reserved_seats);
 
                 // Afficher les sièges réservés dans la console pour le débogage
                 console.log("Sièges réservés:", reservedSeats);
-            });
-        </script>
-
-        <?php 
-            // var_dump($reserved_seats_json); 
-            // // $jsonString = '["1.4-A18"]';
-            // $jsonString = $reserved_seats_json;
-            // $array = json_decode($jsonString); // Convertit la chaîne JSON en tableau PHP
-            
-            // // Accès à l'élément du tableau
-            // if (!empty($array)) {
-            //     $firstElement = $array[0];
-            //     echo "Premier élément du tableau : $firstElement";
-            // } else {
-            //     echo "Le tableau est vide ou non valide.";
-            // }
-        ?>
-        <script>
-            $(document).ready(function() {
-                var reservedSeats = <?php echo $reserved_seats_json; ?>;
-                
-                // Pour chaque siège réservé
-                $.each(reservedSeats, function(index, seatNumber) {
-                    // Sélectionner l'élément avec le data-seat-number correspondant et ajouter la classe 'reserved'
-                    $('[data-seat-number="' + seatNumber + '"]').addClass('reserved');
-                });
             });
         </script>
     </section>

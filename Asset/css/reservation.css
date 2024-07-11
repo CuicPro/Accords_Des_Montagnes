@@ -5,13 +5,13 @@ body {
     justify-content: center;
     align-items: center;
     & .room{
-        height: 90%;
-        width: 90%;
+        height: 98vh;
+        width: 70%;
         & #seats-container{
             display: grid;
-            grid-template-columns: 50% 40% 10%;
-            grid-template-rows: 10% 70% 20%;
-            gap: 0px 20px;
+            grid-template-columns: 45% 40% 10%;
+            grid-template-rows: 10% 65% 20%;
+            gap: 0px 10px;
             height: 100%;
             grid-auto-flow: row;
             grid-template-areas:
@@ -30,9 +30,10 @@ body {
                     height: 20px;
                     width: 20px;
                     border-radius: 5px;
+                    cursor: pointer;
                     background-color: var(--GrisClaire);
                     &.selected{
-                        background-color: var(--Principal);
+                        background-color: #84cc16;
                     }
                 }
             }
@@ -46,9 +47,10 @@ body {
                     height: 20px;
                     width: 20px;
                     border-radius: 5px;
+                    cursor: pointer;
                     background-color: var(--GrisClaire);
                     &.selected{
-                        background-color: var(--Principal);
+                        background-color: #84cc16;
                     }
                 }
             }
@@ -61,9 +63,10 @@ body {
                     height: 20px;
                     width: 20px;
                     border-radius: 5px;
+                    cursor: pointer;
                     background-color: var(--GrisClaire);
                     &.selected{
-                        background-color: var(--Principal);
+                        background-color: #84cc16;
                     }
                 }
             }
@@ -92,6 +95,8 @@ body {
         position: relative;
         cursor: pointer;
         display: flex;
+        align-items: center;
+        justify-content: space-around;
         gap: 20px;
         padding: var(--padding);
         border: none;
@@ -99,7 +104,7 @@ body {
         overflow: hidden;
         font-size: 1em;
         min-width: 200px;
-        max-height: 60px;
+        height: 60px;
         border-radius: var(--borderR);
         background-color: var(--GrisClaire);
         & span, svg{
@@ -129,6 +134,39 @@ body {
         &:hover::before{
             border-radius: var(--borderR);
             transform: translate(0,0);
+        }
+    }
+}
+
+.page_content_container {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.form_container {
+    margin-left: 20px;
+    width: 30%;
+    & header{
+        height: 200px;
+        width: 100%;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        & div{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            & .box{
+                height: 25px;
+                width: 25px;
+                border-radius: 5px;
+            }
         }
     }
 }

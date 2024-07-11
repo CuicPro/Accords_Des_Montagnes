@@ -38,7 +38,7 @@
 
 
 .reserved {
-    background-color: var(--Principal) !important;
+    background-color: var(--C7) !important;
     cursor: not-allowed;
 }
 /* TOAST */
@@ -335,6 +335,24 @@ body{
             row-gap: 5vh;
             height: 120vh;
             width: 100%;
+            & header{
+                width: 100%;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                align-items: center;
+                & div{
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                    justify-content: center;
+                    & .box{
+                        height: 25px;
+                        width: 25px;
+                        border-radius: 5px;
+                    }
+                }
+            }
             & .room{
                 height: 90%;
                 width: 90%;
@@ -361,9 +379,10 @@ body{
                             height: 20px;
                             width: 20px;
                             border-radius: 5px;
+                            cursor: pointer;
                             background-color: var(--GrisClaire);
                             &.selected{
-                                background-color: var(--Principal);
+                                background-color: #84cc16;
                             }
                         }
                     }
@@ -376,10 +395,12 @@ body{
                         & .left-seat{
                             height: 20px;
                             width: 20px;
+                            cursor: pointer;
                             border-radius: 5px;
+                            cursor: pointer;
                             background-color: var(--GrisClaire);
                             &.selected{
-                                background-color: var(--Principal);
+                                background-color: #84cc16;
                             }
                         }
                     }
@@ -392,9 +413,10 @@ body{
                             height: 20px;
                             width: 20px;
                             border-radius: 5px;
+                            cursor: pointer;
                             background-color: var(--GrisClaire);
                             &.selected{
-                                background-color: var(--Principal);
+                                background-color: #84cc16;
                             }
                         }
                     }
@@ -423,12 +445,15 @@ body{
                 position: relative;
                 cursor: pointer;
                 display: flex;
+                align-items: center;
+                justify-content: space-around;
                 gap: 20px;
                 padding: var(--padding);
                 border: none;
                 outline: none;
                 overflow: hidden;
                 font-size: 1em;
+                height: 60px;
                 min-width: 200px;
                 border-radius: var(--borderR);
                 background-color: var(--GrisClaire);

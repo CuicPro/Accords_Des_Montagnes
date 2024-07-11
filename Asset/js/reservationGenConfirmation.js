@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const topSeatsContainer = document.getElementById('top-seats-container');
     const leftSeatsContainer = document.getElementById('left-seats-container');
     const bottomSeatsContainer = document.getElementById('bottom-seats-container');
-    const payButton = document.getElementById('pay-button');
+    const seatsInput = document.getElementById('seats');
+    const form = document.querySelector('form');
+    
     const createSeats = (container, seatsLayout, seatClass) => {
         seatsLayout.forEach(seat => {
             const seatElement = document.createElement('div');
@@ -11,10 +13,27 @@ document.addEventListener('DOMContentLoaded', () => {
             seatElement.style.gridColumn = seat.column;
             seatElement.style.gridRow = seat.row;
             seatElement.dataset.seatNumber = seat.id;
-            
+            seatElement.addEventListener('click', () => {
+                // Si le siège est réservé, ne rien faire
+                if (seatElement.classList.contains('reserved')) {
+                    return;
+                }
+
+                // Si le siège est déjà sélectionné, le désélectionner
+                if (seatElement.classList.contains('selected')) {
+                    seatElement.classList.remove('selected');
+                } else {
+                    // Sinon, le sélectionner
+                    seatElement.classList.add('selected');
+                }
+
+                // Mettre à jour l'input des sièges
+                updateSeatsInput();
+            });
             container.appendChild(seatElement);
         });
     };
+
 
     // Définir la disposition des sièges du haut (4 colonnes avec 2 rangées chacune)
     const topSeatsLayout = [
@@ -314,35 +333,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ];
 
+
+    const updateSeatsInput = () => {
+        const selectedSeats = Array.from(document.querySelectorAll('.seat.selected'))
+            .map(seat => seat.dataset.seatNumber);
+        seatsInput.value = selectedSeats.join(',');
+    };
+
     createSeats(topSeatsContainer, topSeatsLayout, 'top-seat');
     createSeats(leftSeatsContainer, leftSeatsLayout, 'left-seat');
     createSeats(bottomSeatsContainer, bottomSeatsLayout, 'bottom-seat');
-    
-    // payButton.addEventListener('click', () => {
-    //     const selectedSeats = document.querySelectorAll('.seat.selected, .top-seat.selected, .left-seat.selected, .bottom-seat.selected');
-    //     const seatNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber);
-    //     alert(`Seats selected: ${seatNumbers.join(', ')}`);
 
-    //     // Build the query string
-    //     // const queryString = `?seats=${seatNumbers.join(',')}`;
-    //     // window.location.href = `../../reservation/reservation.html${queryString}`;
+    // Initialiser l'input des sièges sélectionnés au chargement de la page
+    updateSeatsInput();
 
-    //     // Create a form dynamically
-    //     const form = document.createElement('form');
-    //     form.method = 'POST';
-    //     form.action = 'reservation/reservation.php';
-
-    //     // Create a hidden input to hold the seat numbers
-    //     const input = document.createElement('input');
-    //     input.type = 'hidden';
-    //     input.name = 'seats';
-    //     input.value = seatNumbers.join(',');
-
-    //     // Append the input to the form
-    //     form.appendChild(input);
-
-    //     // Append the form to the body and submit the form
-    //     document.body.appendChild(form);
-    //     form.submit();
-    // });
+    // Ajouter une validation avant la soumission du formulaire
+    document.getElementById('final_form').addEventListener('submit', (event) => {
+        if (seatsInput.value.trim() === '') {
+            alert('Vous devez sélectionner au minimum 1 siège.');
+            event.preventDefault();
+        }
+    });
 });
